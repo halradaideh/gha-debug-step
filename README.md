@@ -2,6 +2,10 @@
 
 Composite action: start ttyd (attached to tmux) and ngrok on the runner. No service container; static binaries only (ttyd, tmux, ngrok).
 
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)]([https://www.buymeacoffee.com/gbraad](https://buymeacoffee.com/hradaideh))
+
+
 ## Inputs
 
 | Input | Required | Default | Description |
