@@ -1,0 +1,36 @@
+name: 'ttyd + ngrok debug'
+description: 'Start ttyd attached to tmux, expose via ngrok. Touch /tmp/terminate_debugging in the session to finish the workflow.'
+
+inputs:
+  ngrok_authtoken:
+    description: 'ngrok authtoken (use secrets.NGROK_AUTHTOKEN)'
+    required: true
+  port:
+    description: 'Port for ttyd (default 7681)'
+    required: false
+    default: '7681'
+  ngrok_domain:
+    description: 'Optional ngrok reserved domain'
+    required: false
+    default: ''
+  username:
+    description: 'Basic auth username (if password is set). Default: debug'
+    required: false
+    default: 'debug'
+  password:
+    description: 'Basic auth password (e.g. secrets.DEBUG_SESSION_PASSWORD). If set, ttyd will require login.'
+    required: false
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Start ttyd + ngrok debug session
+      shell: bash
+      env:
+        NGROK_AUTHTOKEN: ${{ inputs.ngrok_authtoken }}
+        TTYD_PORT: ${{ inputs.port }}
+        NGROK_DOMAIN: ${{ inputs.ngrok_domain }}
+        TTYD_USERNAME: ${{ inputs.username }}
+        TTYD_PASSWORD: ${{ inputs.password }}
+      run: bash "${{ github.action_path }}/run.sh"
